@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 import json
-import random
-import string
-import sys
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
