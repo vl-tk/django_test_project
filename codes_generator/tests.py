@@ -48,10 +48,7 @@ class GenerateCodeTest(TestCase):
             stdout=out,
         )
 
-        # проверяем результат на соответствие
-
         self.assertTrue(self.codes_file.exists())
-
         with open(self.codes_file, "r") as f:
             codes = json.load(f)
 
