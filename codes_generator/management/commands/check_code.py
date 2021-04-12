@@ -19,6 +19,7 @@ class Command(BaseCommand):
         filename = options.get("filename") or self.DEFAULT_FILENAME
 
         codes_file = settings.BASE_DIR.joinpath(f"codes_generator/results/{filename}")
+        codes_file.parent.mkdir(parents=True, exist_ok=True)
 
         if codes_file.exists():
 
