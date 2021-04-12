@@ -11,6 +11,8 @@ from django.core.management.base import BaseCommand
 class Command(BaseCommand):
     help = "Generates promo-code for specified group"
 
+    DEFAULT_FILENAME = "codes.json"
+
     def add_arguments(self, parser):
         parser.add_argument(
             "--amount",
@@ -23,7 +25,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         options["group"] = self._handle_group_name(options["group"])
-        filename = options.get("filename") or "codes.json"
+
+        filename = options.get("filename") or self.DEFAULT_FILENAME
 
         self.codes = {}
         codes_file = settings.BASE_DIR.joinpath(f"codes_generator/results/{filename}")
