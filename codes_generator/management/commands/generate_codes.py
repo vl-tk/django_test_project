@@ -18,7 +18,7 @@ class Command(BaseCommand):
             help="Number of promo-codes to be created",
         )
         parser.add_argument("--group", type=str, help="Group name")
-        parser.add_argument("--filename", type=str, help="Result file name")
+        parser.add_argument("--filename", type=str, help="Result file")
 
     def handle(self, *args, **options):
 
