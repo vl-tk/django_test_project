@@ -15,13 +15,15 @@ class Command(BaseCommand):
             "--amount", type=int, help="Number of promo-codes to be created"
         )
         parser.add_argument("--group", type=str, help="Group name")
+        parser.add_argument("--filename", type=str, help="Result file name")
 
     def handle(self, *args, **options):
 
         options["group"] = self._handle_group_name(options["group"])
+        filename = options.get("filename", "codes.json")
 
         self.codes = {}
-        codes_file = settings.BASE_DIR.joinpath("codes_generator/results/codes.json")
+        codes_file = settings.BASE_DIR.joinpath(f"codes_generator/results/{filename}")
 
         if codes_file.exists():
 
