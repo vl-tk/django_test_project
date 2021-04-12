@@ -70,6 +70,7 @@ class CheckCodeTest(TestCase):
         self.codes_file = settings.BASE_DIR.joinpath(
             "codes_generator/results/test.json"
         )
+        self.codes_file.parent.mkdir(parents=True, exist_ok=True)
 
         data = {
             "my_group": [
