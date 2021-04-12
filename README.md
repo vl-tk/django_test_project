@@ -1,10 +1,9 @@
 #### INSTALLATION:
 
-1. mkdir promo_gen
-2. git clone https://github.com/vl-tk/django_test_project.git
-3. python -m venv env
-4. source env/bin/activate
-5. pip install -r requirements.txt
+1. git clone https://github.com/vl-tk/django_test_project.git
+2. python -m venv env
+3. source env/bin/activate
+4. pip install -r requirements.txt
 
 #### USAGE:
 
