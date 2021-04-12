@@ -2,10 +2,9 @@
 import json
 import random
 import string
-from collections import defaultdict
 
 from django.conf import settings
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
@@ -18,6 +17,8 @@ class Command(BaseCommand):
         parser.add_argument("--group", type=str, help="Group name")
 
     def handle(self, *args, **options):
+
+        options["group"] = self._handle_group_name(options["group"])
 
         self.codes = {}
         codes_file = settings.BASE_DIR.joinpath("codes_generator/results/codes.json")
@@ -49,6 +50,7 @@ class Command(BaseCommand):
         )
 
     def _generate_code(self):
+        """Generates random A-Za-z0-9{10} code."""
         letters = string.ascii_letters + string.digits
         return "".join(random.choice(letters) for i in range(10))  # nosec
 
@@ -58,3 +60,13 @@ class Command(BaseCommand):
                 if code == existing_code:
                     return True
         return False
+
+    def _handle_group_name(self, group_name):
+        """Prepares group name from argument to be saved appropriately in JSON.
+        1) Remove single or double quotes arount group name
+        """
+        if group_name.startswith('"') and group_name.endswith('"'):
+            return group_name[1:-1]
+        if group_name.startswith("'") and group_name.endswith("'"):
+            return group_name[1:-1]
+        return group_name
