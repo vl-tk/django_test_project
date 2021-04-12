@@ -10,11 +10,13 @@
 
 python manage.py generate_codes --amount=5 --group='avtostop'
 
-(optional --filename argument is supported. Default value is 'codes.json')
-
 python manage.py check_code MY_CODE
 
-(optional --filename argument is supported. Default value is 'codes.json')
+Result will be in the __django_test_project/codes_generator/results/codes.json__
+
+```
+Optional --filename argument is supported for both commands. Default value is 'codes.json'
+```
 
 #### RUNNING TESTS:
 
