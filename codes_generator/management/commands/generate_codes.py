@@ -12,8 +12,10 @@ class Command(BaseCommand):
     help = "Generates promo-code for specified group"
 
     def add_arguments(self, parser):
-        parser.add_argument("amount", type=int)
-        parser.add_argument("group", type=str)
+        parser.add_argument(
+            "--amount", type=int, help="Number of promo-codes to be created"
+        )
+        parser.add_argument("--group", type=str, help="Group name")
 
     def handle(self, *args, **options):
 
@@ -37,12 +39,12 @@ class Command(BaseCommand):
                     break
 
         with open(codes_file, "w") as f:
-            json.dump(self.codes, f)
+            json.dump(self.codes, f, ensure_ascii=False)
 
         self.stdout.write(
             self.style.SUCCESS(
-                f'Successfully generated: {options["amount"]} codes'
-                f' for group {options["group"]} '
+                f'Successfully generated {options["amount"]} codes'
+                f' for group "{options["group"]}"'
             )
         )
 
