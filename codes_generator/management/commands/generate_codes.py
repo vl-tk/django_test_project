@@ -41,14 +41,14 @@ class Command(BaseCommand):
 
         self.stdout.write(
             self.style.SUCCESS(
-                f'Successfully generated: {options["amount"]} codes" \
-                " for group {options["group"]} '
+                f'Successfully generated: {options["amount"]} codes'
+                f' for group {options["group"]} '
             )
         )
 
     def _generate_code(self):
         letters = string.ascii_letters + string.digits
-        return "".join(random.choice(letters) for i in range(10))
+        return "".join(random.choice(letters) for i in range(10))  # nosec
 
     def _check_if_code_exists(self, code):
         for group in self.codes.keys():
