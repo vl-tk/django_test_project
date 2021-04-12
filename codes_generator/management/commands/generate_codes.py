@@ -2,6 +2,7 @@
 import json
 import random
 import string
+import sys
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -12,7 +13,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "--amount", type=int, help="Number of promo-codes to be created"
+            "--amount",
+            type=lambda x: (int(x) > 0) and int(x) or sys.exit("Minimum amount is 1"),
+            help="Number of promo-codes to be created",
         )
         parser.add_argument("--group", type=str, help="Group name")
         parser.add_argument("--filename", type=str, help="Result file name")
@@ -20,7 +23,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         options["group"] = self._handle_group_name(options["group"])
-        filename = options.get("filename", "codes.json")
+        filename = options.get("filename") or "codes.json"
 
         self.codes = {}
         codes_file = settings.BASE_DIR.joinpath(f"codes_generator/results/{filename}")
@@ -46,10 +49,11 @@ class Command(BaseCommand):
 
         self.stdout.write(
             self.style.SUCCESS(
-                f'Successfully generated {options["amount"]} codes'
+                f'Successfully generated {options["amount"]} code(s)'
                 f' for group "{options["group"]}"'
             )
         )
+        self.stdout.write(self.style.SUCCESS(f"Result: {codes_file.absolute()}"))
 
     def _generate_code(self):
         """Generates random A-Za-z0-9{10} code."""
