@@ -58,19 +58,19 @@ class Command(BaseCommand):
         )
         self.stdout.write(self.style.SUCCESS(f"Result: {codes_file.absolute()}"))
 
-    def _generate_code(self):
+    def _generate_code(self) -> str:
         """Generates random A-Za-z0-9{10} code."""
         letters = string.ascii_letters + string.digits
         return "".join(random.choice(letters) for i in range(10))  # nosec
 
-    def _check_if_code_exists(self, code):
+    def _check_if_code_exists(self, code: str) -> bool:
         for group in self.codes.keys():
             for existing_code in self.codes[group]:
                 if code == existing_code:
                     return True
         return False
 
-    def _handle_group_name(self, group_name):
+    def _handle_group_name(self, group_name: str) -> str:
         """Prepares group name from argument to be saved appropriately in JSON.
         1) Remove single or double quotes arount group name
         """
